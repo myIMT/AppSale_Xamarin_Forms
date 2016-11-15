@@ -153,31 +153,6 @@ namespace AppSale
 
         async void OnFacebookLoginButtonClicked(object sender, EventArgs e)
         {
-            //try
-            //{
-
-            //if (App.Authenticator != null)
-            //{
-            //    authenticated = await App.Authenticator.AuthenticateAsync();;;;;;;;
-            //}
-
-            //if (authenticated)
-            //{
-            //    Navigation.InsertPageBefore(new TestPage(), this);
-            //    await Navigation.PopAsync();
-            //}
-            //}
-            //catch (InvalidOperationException ex)
-            //{
-            //    if (ex.Message.Contains("Authentication was cancelled"))
-            //    {
-            //        messageLabel.Text = "Authentication cancelled by the user";
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    messageLabel.Text = "Authentication failed";
-            //}
             try
             {
 
