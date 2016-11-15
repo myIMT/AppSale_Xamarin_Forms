@@ -142,7 +142,44 @@ namespace AppSale
                     AppSale.Helpers.Settings.InitFavSet = true;
                     if (AppSale.Helpers.Settings.InitFavSet)
                     {
-                        await Navigation.PushAsync(new TestPage());
+                        //DELETE THIS------------------------------
+                        AppSale.Helpers.Settings.InitFavSet = true;
+                        //-----------------------------------------
+                        if (AppSale.Helpers.Settings.InitFavSet)
+                        {
+                            //await Navigation.PushAsync(new GetFavourites());
+                            //await Navigation.PushAsync(new AddFavourite());
+                            //await Navigation.PushAsync(new TodoList());
+                            //await Navigation.PushModalAsync(multiPage);
+                            //-----------------------------------------------------------------------------------------------
+                            var items = new List<CheckItem>();
+                            items.Add(new CheckItem { Name = "FASHION & BEAUTY" });
+                            items.Add(new CheckItem { Name = "SPORTS & OUTDOOR" });
+                            items.Add(new CheckItem { Name = "PETS" });
+                            items.Add(new CheckItem { Name = "VEHICLES" });
+                            items.Add(new CheckItem { Name = "HOME IMPROVEMENT" });
+                            items.Add(new CheckItem { Name = "BABIES / CHILDREN" });
+                            items.Add(new CheckItem { Name = "HOOBIES INTERESTS" });
+                            items.Add(new CheckItem { Name = "MOBILE PHONES & ACCESSORIES" });
+                            items.Add(new CheckItem { Name = "HOME APPLIANCES" });
+                            items.Add(new CheckItem { Name = "GAMING" });
+                            items.Add(new CheckItem { Name = "BOOKS" });
+                            items.Add(new CheckItem { Name = "MUSIC" });
+
+
+                            //todoList.ItemsSource = items;
+                            if (multiPage == null)
+                                multiPage = new SelectMultipleBasePage<CheckItem>(items) { Title = "Select your favourites" };
+
+                            //await Navigation.PushModalAsync(multiPage);
+                            await Navigation.PushAsync(multiPage);
+                            //----------------------------------------------------------------------------------------------------
+                            AppSale.Helpers.Settings.InitFavSet = false;
+                        }
+                        else
+                        {
+                            await Navigation.PushModalAsync(new Sale());
+                        }
                         AppSale.Helpers.Settings.InitFavSet = false;
                     }
                     else
