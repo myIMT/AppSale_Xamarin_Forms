@@ -1,0 +1,7 @@
+http://appsale.azurewebsites.net/.auth/login/facebook/callback
+http://appsale.azurewebsites.net/.auth/login/facebook/callback
+
+
+
+App ID: 786492078157673
+App secret: c0bb43f9e8a39838d5ce14d7aefb2ad2

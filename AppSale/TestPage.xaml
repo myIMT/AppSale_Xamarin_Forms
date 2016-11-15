@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSale.TestPage"
+             Title="DEMO CRUD (w.i.p.)">
+  <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
+  <StackLayout  Orientation="Vertical" VerticalOptions="StartAndExpand">
+    <Button Text="Demo: Create Data" MinimumHeightRequest="30" Clicked="OnCreateButtonClicked" />
+    <Button Text="Demo: Read Data" Clicked="OnReadButtonClicked" HeightRequest="50" />
+    <Button Text="Demo: Update Data" MinimumHeightRequest="30" Clicked="OnUpdateButtonClicked" />
+    <Button Text="Demo: Delete Data" MinimumHeightRequest="30" Clicked="OnDeleteButtonClicked" />
+    <Label x:Name="messageLabel" />
+  </StackLayout>
+</ContentPage>

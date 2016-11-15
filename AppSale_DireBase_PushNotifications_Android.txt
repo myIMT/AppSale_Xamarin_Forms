@@ -1,0 +1,11 @@
+AppSale
+
+Firebase
+
+Push Notifications
+
+Android
+Server Key: AIzaSyDCnGuF8CiUpFpRGszZ42BoteaRsPkNCow
+Sender ID: 492574691792
+
+Web API Key: AIzaSyCCfS6xxxHkzhIwXtF7CUWG8-CAPf_Z-e4

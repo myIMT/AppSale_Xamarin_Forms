@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "492574691792",
+    "firebase_url": "https://appsale-76ebf.firebaseio.com",
+    "project_id": "appsale-76ebf",
+    "storage_bucket": "appsale-76ebf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492574691792:android:49f50aa799b8542f",
+        "android_client_info": {
+          "package_name": "com.xamarin.sample.AppSale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492574691792-m4mc979usl0m99b2f38jaqovf4uvopok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9VEfJpU7ZAkLcIabvWNLAmTVh6CjXwzk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
