@@ -1,11 +1,14 @@
 AppSale
 
-Firebase
+Firebase:
 
-Push Notifications
+General:
+Web API Key: AIzaSyAwpJnxlq7T1UUuKG5_pQm6E_GBWtAhYVk
 
+Cloud Messaging:
+Firebase Cloud Messaging token:
+AAAA51ns-7s:APA91bHnPJ8hETiwtnM2Fp4rQKo_EB59-Hkzryd9ljb8tJQQ2_WyYxJ1TGg7hGg4UhxF0luG4AYBtGsydMFl3PXoeG1Fm_sVYCblUpbq3Rzvdct2X84AjGIWkVIOfeAIk3ghDzXb4dGHDV3d_Yi4C-HG1SE38v_fug
 Android
-Server Key: AIzaSyDCnGuF8CiUpFpRGszZ42BoteaRsPkNCow
-Sender ID: 492574691792
+Server Key: AIzaSyDDTCOy3T8PKvWUEV9x07f1S3dhHnHQJW8
+Sender ID: 993646148539
 
-Web API Key: AIzaSyCCfS6xxxHkzhIwXtF7CUWG8-CAPf_Z-e4

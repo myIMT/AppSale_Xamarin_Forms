@@ -40,38 +40,13 @@ namespace AppSale
                 this.forgotButton.IsVisible = false;
                 this.logoutButton.IsVisible = true;
 
-                //await DisplayAlert("number of items on nav bar: ", ToolbarItems.Count.ToString(), "OK");
-                //if (ToolbarItems.Count > 0)
-                //{
-                //    ToolbarItems.Clear();
-                //    ToolbarItems.RemoveAt(0);
-                //}
                 ToolbarItems.Add(new ToolbarItem("Next", "filter.png", async () =>
                 {
                     await Navigation.PushAsync(new TestPage());
-                    //var page = new ContentPage();
-                    //var result = await page.DisplayAlert("Title", "Message", "Accept", "Cancel");
-                    //Debug.WriteLine("success: {0}", result);
                 }));
-                //this.forwardNav.Effects.Clear();
-                //ToolbarItems.Add(new ToolbarItem("Filter", "filter.png", async () =>
-                //{
-                //    await Navigation.PushAsync(new TestPage());
-                //    //var page = new ContentPage();
-                //    //var result = await page.DisplayAlert("Title", "Message", "Accept", "Cancel");
-                //    //Debug.WriteLine("success: {0}", result);
-                //}));
             }
             else
             {
-                //DisplayAlert("number of items on nav bar: ", ToolbarItems.Count.ToString(), "OK");
-                //if (ToolbarItems.Count > 0)
-                //{
-                //ToolbarItems.Clear();
-                //ToolbarItems.RemoveAt(0);
-                //}
-
-                //this.forwardNav.Effects.Clear();
                 this.loginButton.IsVisible = true;
                 this.facebookLoginButton.IsVisible = true;
                 this.registerButton.IsVisible = true;
@@ -189,14 +164,6 @@ namespace AppSale
             {
                 messageLabel.Text = "Authentication failed";
             }
-
-            //Navigation.InsertPageBefore(new TodoList(), this);
-            //await Navigation.PopAsync();
-            //await Navigation.PopAsync();
-            //Navigation.PushAsync(new TodoList());
-
-            //The simplest technique for passing data to another page during navigation is through a page constructor parameter
-            //.MainPage = new NavigationPage(new MainPage(DateTime.Now.ToString("u")));
         }
 
         async void OnLogoutButtonClicked(object sender, EventArgs e)
@@ -214,11 +181,5 @@ namespace AppSale
                 await Navigation.PopAsync();
             }
         }
-
-        //async void OnNextPageClicked(object sender, EventArgs e)
-        //{
-        //    //DisplayAlert("number of items on nav bar: ", ToolbarItems.Count.ToString(), "OK");
-        //    await Navigation.PushAsync(new TestPage());
-        //}
     }
 }
