@@ -158,7 +158,7 @@ namespace AppSale
 
             //if (App.Authenticator != null)
             //{
-            //    authenticated = await App.Authenticator.AuthenticateAsync();;;;;;
+            //    authenticated = await App.Authenticator.AuthenticateAsync();;;;;;;;
             //}
 
             //if (authenticated)
