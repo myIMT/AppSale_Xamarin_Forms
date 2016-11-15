@@ -168,9 +168,6 @@ namespace AppSale
                     if (AppSale.Helpers.Settings.InitFavSet)
                     {
                         await Navigation.PushAsync(new TestPage());
-                        //await Navigation.PushAsync(new AddFavourite());
-                        //await Navigation.PushAsync(new TodoList());
-                        //await Navigation.PushModalAsync(multiPage);
                         AppSale.Helpers.Settings.InitFavSet = false;
                     }
                     else
