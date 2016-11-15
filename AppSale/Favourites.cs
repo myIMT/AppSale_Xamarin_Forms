@@ -28,6 +28,9 @@ namespace AppSale
 
 
 
+        [JsonProperty("userId")]
+        public string UserId { get; set; }
+
         [JsonProperty(PropertyName = "id")]
 		public string Id
 		{

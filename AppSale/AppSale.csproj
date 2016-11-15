@@ -49,6 +49,7 @@
       <DependentUpon>Sale.xaml</DependentUpon>
     </Compile>
     <Compile Include="Favourites.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>

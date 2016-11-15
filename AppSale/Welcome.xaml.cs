@@ -14,6 +14,7 @@ namespace AppSale
         bool authenticated = false;
         // Track whether the user has authenticated. 
         SelectMultipleBasePage<CheckItem> multiPage;
+        SelectMultipleBasePage<CheckItem> regionMultiPage;
 
         public Welcome()
         {
@@ -29,10 +30,45 @@ namespace AppSale
             // Refresh items only when authenticated.
             if (authenticated == true)
             {
+                if (multiPage != null)
+                {
+                    //////var items = new List<CheckItem>();
+                    //////items.Add(new CheckItem { Name = "Eastern Cape" });
+                    //////items.Add(new CheckItem { Name = "Free State" });
+                    //////items.Add(new CheckItem { Name = "Gauteng" });
+                    //////items.Add(new CheckItem { Name = "KwaZulu-Natal." });
+                    //////items.Add(new CheckItem { Name = "Limpopo" });
+                    //////items.Add(new CheckItem { Name = "Mpumalanga" });
+                    //////items.Add(new CheckItem { Name = "Northern Cape" });
+                    //////items.Add(new CheckItem { Name = "North West" });
+                    //////items.Add(new CheckItem { Name = "Western Cape" });
+
+                    ////////todoList.ItemsSource = items;
+                    //////if (regionMultiPage == null)
+                    //////    regionMultiPage = new SelectMultipleBasePage<CheckItem>(items) { Title = "Select your region" };
+
+                    ////////await Navigation.PushModalAsync(multiPage);
+                    //////await Navigation.PushAsync(regionMultiPage);
+
+                    messageLabel.Text = "";
+                    var answers = multiPage.GetSelection();
+                    foreach (var a in answers)
+                    {
+                        messageLabel.Text += a.Name + ", ";
+                        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+                    }
+                    //Favourites FavItem = SetFavItem(answers);
+                    //                AddItem();
+                }
+                else
+                {
+                    messageLabel.Text = "";
+                }
+            
                 // Set syncItems to true in order to synchronize the data 
                 // on startup when running in offline mode.
                 //await RefreshItems(true, syncItems: false);
-                
+
                 // Hide the Sign-in button.
                 this.loginButton.IsVisible = false;
                 this.facebookLoginButton.IsVisible = false;
