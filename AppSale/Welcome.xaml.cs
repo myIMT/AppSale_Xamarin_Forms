@@ -21,7 +21,7 @@ namespace AppSale
         public Welcome()
         {
             InitializeComponent();
-            
+            manager = TodoItemManager.DefaultManager;
         }
 
         protected override async void OnAppearing()
@@ -54,13 +54,14 @@ namespace AppSale
 
                     messageLabel.Text = "";
                     var answers = multiPage.GetSelection();
+                    ZeroFavouriteItems();
                     foreach (var a in answers)
                     {
                         messageLabel.Text += a.Name + ", ";
                         //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
                         SetFavouriteValue(a.Name);
                     }
-                    manager.SaveTaskAsync(favourites);
+                    await manager.SaveTaskAsync(favourites);
                     //Favourites FavItem = SetFavItem(answers);
                     //                AddItem();
                 }
@@ -111,6 +112,22 @@ namespace AppSale
             //    messageLabel.Text = "";
             //}
 
+        }
+
+        private void ZeroFavouriteItems()
+        {
+            favourites.FashionAndBeauty = 0;
+            favourites.SportsAndOutdoor = 0;
+            favourites.Pets = 0;
+            favourites.Vehicles = 0;
+            favourites.HomeImprovement = 0;
+            favourites.BabiesChildren = 0;
+            favourites.HobbiesInterests = 0;
+            favourites.MobilePhonesAndAccessories = 0;
+            favourites.HomeAppliances = 0;
+            favourites.Gaming = 0;
+            favourites.Books = 0;
+            favourites.Music = 0;
         }
 
         private void SetFavouriteValue(string name)
