@@ -15,6 +15,8 @@ namespace AppSale
         // Track whether the user has authenticated. 
         SelectMultipleBasePage<CheckItem> multiPage;
         SelectMultipleBasePage<CheckItem> regionMultiPage;
+        Favourites favourites = new Favourites();
+        TodoItemManager manager;
 
         public Welcome()
         {
@@ -56,7 +58,9 @@ namespace AppSale
                     {
                         messageLabel.Text += a.Name + ", ";
                         //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+                        SetFavouriteValue(a.Name);
                     }
+                    manager.SaveTaskAsync(favourites);
                     //Favourites FavItem = SetFavItem(answers);
                     //                AddItem();
                 }
@@ -90,24 +94,80 @@ namespace AppSale
                 this.logoutButton.IsVisible = false;
             }
 
-            if (multiPage != null)
-            {
-                messageLabel.Text = "";
-                var answers = multiPage.GetSelection();
-                foreach (var a in answers)
-                {
-                    messageLabel.Text += a.Name + ", ";
-                    //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
-                }
-                //Favourites FavItem = SetFavItem(answers);
-                //                AddItem();
-            }
-            else
-            {
-                messageLabel.Text = "";
-            }
+            //if (multiPage != null)
+            //{
+            //    messageLabel.Text = "";
+            //    var answers = multiPage.GetSelection();
+            //    foreach (var a in answers)
+            //    {
+            //        messageLabel.Text += a.Name + ", ";
+            //        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+            //    }
+            //    //Favourites FavItem = SetFavItem(answers);
+            //    //                AddItem();
+            //}
+            //else
+            //{
+            //    messageLabel.Text = "";
+            //}
 
         }
+
+        private void SetFavouriteValue(string name)
+        {
+            switch (name)
+            {
+                case "FASHION & BEAUTY":
+                    favourites.FashionAndBeauty = 1;
+                    DisplayAlert("SetFavouriteValue: " + name, favourites.FashionAndBeauty.ToString(), "OK");
+                    break;
+                case "SPORTS & OUTDOOR":
+                    favourites.SportsAndOutdoor = 1;
+                    DisplayAlert("SetFavouriteValue: " + name, favourites.SportsAndOutdoor.ToString(), "OK");
+                    break;
+                case "PETS":
+                    favourites.Pets = 1;
+                    DisplayAlert("SetFavouriteValue: " + name, favourites.Pets.ToString(), "OK");
+                    break;
+                case "VEHICLES":
+                    favourites.Vehicles = 1;
+                    DisplayAlert("SetFavouriteValue: " + name, favourites.Vehicles.ToString(), "OK");
+                    break;
+                case "HOME IMPROVEMENT":
+                    favourites.HomeImprovement = 1;
+                    DisplayAlert("SetFavouriteValue: " + name, favourites.HomeImprovement.ToString(), "OK");
+                    break;
+
+
+                case "BABIES/CHILDREN":
+                    favourites.BabiesChildren = 1;
+                    //DisplayAlert("SetFavouriteValue: " + name, favourites.FashionAndBeauty.ToString(), "OK");
+                    break;
+                case "HOBBIES/INTERESTS":
+                    favourites.HobbiesInterests = 1;
+                    break;
+                case "MOBILE PHONES & ACCESSORIES":
+                    favourites.MobilePhonesAndAccessories = 1;
+                    break;
+                case "HOME APPLIANCES":
+                    favourites.HomeAppliances = 1;
+                    break;
+                case "GAMING":
+                    favourites.Gaming = 1;
+                    break;
+                case "BOOKS":
+                    favourites.Books = 1;
+                    break;
+                case "MUSIC":
+                    favourites.Music = 1;
+                    break;
+                default:
+                    //DisplayAlert("NOTHING -- SetFavouriteValue: ", name, "OK");
+                    //favourites.[name] = 0;
+                    break;
+            }
+        }
+
 
         //SelectMultipleBasePage<CheckItem> multiPage;
         async void OnLoginButtonClicked(object sender, EventArgs e)
@@ -194,8 +254,8 @@ namespace AppSale
                             items.Add(new CheckItem { Name = "PETS" });
                             items.Add(new CheckItem { Name = "VEHICLES" });
                             items.Add(new CheckItem { Name = "HOME IMPROVEMENT" });
-                            items.Add(new CheckItem { Name = "BABIES / CHILDREN" });
-                            items.Add(new CheckItem { Name = "HOOBIES INTERESTS" });
+                            items.Add(new CheckItem { Name = "BABIES/CHILDREN" });
+                            items.Add(new CheckItem { Name = "HOBBIES/INTERESTS" });
                             items.Add(new CheckItem { Name = "MOBILE PHONES & ACCESSORIES" });
                             items.Add(new CheckItem { Name = "HOME APPLIANCES" });
                             items.Add(new CheckItem { Name = "GAMING" });

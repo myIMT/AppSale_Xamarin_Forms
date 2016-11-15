@@ -66,7 +66,7 @@ namespace AppSale
             await AddItem(favourites);
         }
 
-        async Task AddItem(Favourites item)
+        public async Task AddItem(Favourites item)
         {
             await manager.SaveTaskAsync(item);
             //todoList.ItemsSource = await manager.GetTodoItemsAsync();
