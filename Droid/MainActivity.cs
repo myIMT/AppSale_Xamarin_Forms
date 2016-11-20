@@ -93,7 +93,7 @@ namespace AppSale.Droid
                     user = await TodoItemManager.DefaultManager.CurrentClient.LoginAsync(this, MobileServiceAuthenticationProvider.Facebook);
                     if (user != null)
                     {
-                        CreateAndShowDialog("You are now logged in", "Logged in!");
+                        //CreateAndShowDialog("You are now logged in", "Logged in!");
                     }
                 }
                 success = true;
