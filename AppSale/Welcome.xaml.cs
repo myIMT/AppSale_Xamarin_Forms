@@ -17,6 +17,7 @@ namespace AppSale
         SelectMultipleBasePage<CheckItem> regionMultiPage;
         Favourites favourites = new Favourites();
         TodoItemManager manager;
+        Regions regions = new Regions();
 
         public Welcome()
         {
@@ -179,6 +180,50 @@ namespace AppSale
                     break;
                 case "MUSIC":
                     favourites.Music = 1;
+                    break;
+                default:
+                    //DisplayAlert("NOTHING -- SetFavouriteValue: ", name, "OK");
+                    //favourites.[name] = 0;
+                    break;
+            }
+        }
+
+        private void SetRegionValue(string name)
+        {
+            switch (name)
+            {
+                case "Eastern Cape":
+                    regions.EasternCape = 1;
+                    //DisplayAlert("SetFavouriteValue: " + name, favourites.FashionAndBeauty.ToString(), "OK");
+                    break;
+                case "Free State":
+                    regions.FreeState = 1;
+                    //DisplayAlert("SetFavouriteValue: " + name, favourites.SportsAndOutdoor.ToString(), "OK");
+                    break;
+                case "Gauteng":
+                    regions.Gauteng = 1;
+                    //DisplayAlert("SetFavouriteValue: " + name, favourites.Pets.ToString(), "OK");
+                    break;
+                case "KwaZulu-Natal":
+                    regions.KwaZuluNatal = 1;
+                    //DisplayAlert("SetFavouriteValue: " + name, favourites.Vehicles.ToString(), "OK");
+                    break;
+                case "Limpopo":
+                    regions.Limpopo = 1;
+                    //DisplayAlert("SetFavouriteValue: " + name, favourites.HomeImprovement.ToString(), "OK");
+                    break;
+                case "Mpumalanga":
+                    regions.Mpumalanga = 1;
+                    //DisplayAlert("SetFavouriteValue: " + name, favourites.FashionAndBeauty.ToString(), "OK");
+                    break;
+                case "Northen Cape":
+                    regions.NorthernCape = 1;
+                    break;
+                case "North West":
+                    regions.NorthWest = 1;
+                    break;
+                case "Western Cape":
+                    regions.WesternCape = 1;
                     break;
                 default:
                     //DisplayAlert("NOTHING -- SetFavouriteValue: ", name, "OK");
