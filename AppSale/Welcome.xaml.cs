@@ -18,6 +18,8 @@ namespace AppSale
         Favourites favourites = new Favourites();
         TodoItemManager manager;
         Regions regions = new Regions();
+        bool setRegions = false;
+        bool setFavourites = false;
 
         public Welcome()
         {
@@ -33,43 +35,55 @@ namespace AppSale
             // Refresh items only when authenticated.
             if (authenticated == true)
             {
-                if (multiPage != null)
+                if (setFavourites && setRegions)
                 {
-                    //        var items = new List<CheckItem>();
-                    //        items.Add(new CheckItem { Name = "Eastern Cape" });
-                    //        items.Add(new CheckItem { Name = "Free State" });
-                    //        items.Add(new CheckItem { Name = "Gauteng" });
-                    //        items.Add(new CheckItem { Name = "KwaZulu-Natal." });
-                    //        items.Add(new CheckItem { Name = "Limpopo" });
-                    //        items.Add(new CheckItem { Name = "Mpumalanga" });
-                    //        items.Add(new CheckItem { Name = "Northern Cape" });
-                    //        items.Add(new CheckItem { Name = "North West" });
-                    //        items.Add(new CheckItem { Name = "Western Cape" });
+                    var ranswers = regionMultiPage.GetSelection();
+                    foreach (var a in ranswers)
+                    {
+                        messageLabel.Text += a.Name + ", ";
+                        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+                        SetRegionValue(a.Name);
 
-                    //        //todoList.ItemsSource = items;
-                    //        if (regionMultiPage == null)
-                    //            regionMultiPage = new SelectMultipleBasePage<CheckItem>(items) { Title = "Select your region" };
+                    }
+                    await AddRegions(regions);
+                    await Navigation.PushAsync(new Sale());
+                }
 
-                    //        await Navigation.PushModalAsync(multiPage);
-                    //        //await Navigation.PushAsync(regionMultiPage);
+                if (setFavourites && (setRegions==false))
+                {
+                    var items = new List<CheckItem>();
+                    items.Add(new CheckItem { Name = "Eastern Cape" });
+                    items.Add(new CheckItem { Name = "Free State" });
+                    items.Add(new CheckItem { Name = "Gauteng" });
+                    items.Add(new CheckItem { Name = "KwaZulu-Natal." });
+                    items.Add(new CheckItem { Name = "Limpopo" });
+                    items.Add(new CheckItem { Name = "Mpumalanga" });
+                    items.Add(new CheckItem { Name = "Northern Cape" });
+                    items.Add(new CheckItem { Name = "North West" });
+                    items.Add(new CheckItem { Name = "Western Cape" });
 
-                    //        messageLabel.Text = "";
-                    //        var region = regionMultiPage.GetSelection();
-                    //        ZeroFavouriteItems();
-                    //        foreach (var a in region)
-                    //        {
-                    //            messageLabel.Text += a.Name + ", ";
-                    //            //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
-                    //            //SetFavouriteValue(a.Name);
-                    //        }
-                    //        //await manager.SaveTaskAsync(favourites);
-                    //        //Favourites FavItem = SetFavItem(answers);
-                    //        //                AddItem();
-                    //    }
-                    //    else
-                    //    {
-                    //        messageLabel.Text = "";
-                    //    }
+                    //todoList.ItemsSource = items;
+                    if (regionMultiPage == null)
+                        regionMultiPage = new SelectMultipleBasePage<CheckItem>(items) { Title = "Select your region" };
+
+                    //await Navigation.PushModalAsync(multiPage);
+                    await Navigation.PushAsync(regionMultiPage);
+                    messageLabel.Text = "";
+                    //var ranswers = regionMultiPage.GetSelection();
+                    //foreach (var a in ranswers)
+                    //{
+                    //    messageLabel.Text += a.Name + ", ";
+                    //    //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+                    //    SetRegionValue(a.Name);
+
+                    //}
+                    //await AddRegions(regions);
+                    setRegions = true;
+                    }
+                    else
+                    {
+                        messageLabel.Text = "";
+                    }
 
                     // Set syncItems to true in order to synchronize the data 
                     // on startup when running in offline mode.
@@ -77,44 +91,43 @@ namespace AppSale
 
                     // Hide the Sign-in button.
                     this.loginButton.IsVisible = false;
-                    this.facebookLoginButton.IsVisible = false;
-                    this.registerButton.IsVisible = false;
-                    this.forgotButton.IsVisible = false;
-                    this.logoutButton.IsVisible = true;
+                this.facebookLoginButton.IsVisible = false;
+                this.registerButton.IsVisible = false;
+                this.forgotButton.IsVisible = false;
+                this.logoutButton.IsVisible = true;
 
-                    ToolbarItems.Add(new ToolbarItem("Next", "filter.png", async () =>
-                    {
-                        await Navigation.PushAsync(new TestPage());
-                    }));
-                }
-                else
+                ToolbarItems.Add(new ToolbarItem("Next", "filter.png", async () =>
                 {
-                    this.loginButton.IsVisible = true;
-                    this.facebookLoginButton.IsVisible = true;
-                    this.registerButton.IsVisible = true;
-                    this.forgotButton.IsVisible = true;
-                    this.logoutButton.IsVisible = false;
-                }
-
-                if (multiPage != null)
-                {
-                    messageLabel.Text = "";
-                    var answers = multiPage.GetSelection();
-                    foreach (var a in answers)
-                    {
-                        messageLabel.Text += a.Name + ", ";
-                        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
-                        SetFavouriteValue(a.Name);
-                        
-                    }
-                    await AddItem(favourites);
-                }
-                else
-                {
-                    messageLabel.Text = "";
-                }
-
+                    await Navigation.PushAsync(new TestPage());
+                }));
             }
+            else
+            {
+                this.loginButton.IsVisible = true;
+                this.facebookLoginButton.IsVisible = true;
+                this.registerButton.IsVisible = true;
+                this.forgotButton.IsVisible = true;
+                this.logoutButton.IsVisible = false;
+            }
+
+            if (multiPage != null)
+            {
+                messageLabel.Text = "";
+                var answers = multiPage.GetSelection();
+                foreach (var a in answers)
+                {
+                    messageLabel.Text += a.Name + ", ";
+                    //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+                    SetFavouriteValue(a.Name);
+
+                }
+                await AddFavourite(favourites);
+            }
+            else
+            {
+                messageLabel.Text = "";
+            }
+
         }
 
         private void ZeroFavouriteItems()
@@ -232,9 +245,15 @@ namespace AppSale
             }
         }
 
-        public async Task AddItem(Favourites item)
+        public async Task AddFavourite(Favourites item)
         {
             await manager.SaveTaskAsync(item);
+            //todoList.ItemsSource = await manager.GetTodoItemsAsync();
+        }
+
+        public async Task AddRegions(Regions item)
+        {
+            await manager.SaveRegionAsync(item);
             //todoList.ItemsSource = await manager.GetTodoItemsAsync();
         }
         //SelectMultipleBasePage<CheckItem> multiPage;
@@ -287,7 +306,7 @@ namespace AppSale
 
         public void OnForgotButtonClicked(object sender, EventArgs e)
         {
-            DisplayAlert("Alert","Screen that handles password and-or username login details retrieval", "OK");
+            DisplayAlert("Alert", "Screen that handles password and-or username login details retrieval", "OK");
         }
 
         async void OnFacebookLoginButtonClicked(object sender, EventArgs e)
@@ -339,6 +358,8 @@ namespace AppSale
                             await Navigation.PushAsync(multiPage);
                             //----------------------------------------------------------------------------------------------------
                             AppSale.Helpers.Settings.InitFavSet = false;
+                            //setRegions = true;
+                            setFavourites = true;
                         }
                         else
                         {

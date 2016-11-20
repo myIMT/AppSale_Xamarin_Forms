@@ -7,131 +7,93 @@ namespace AppSale
     public class Regions
     {
         string id;
-        int EasterCape;
-        int FreeState;
-        int Gauteng;
-        int KwaZuluNatal;
-        int homeImprovement;
-        int babiesChildren;
-        int hobbiesInterests;
-        int mobilePhonesAndAccessories;
-        int homeAppliances;
-        int gaming;
-        int books;
-        int music;
+        int easternCape;
+        int freeState;
+        int gauteng;
+        int kwaZuluNatal;
+        int limpopo;
+        int mpumalanga;
+        int northernCape;
+        int northWest;
+        int westernCape;
 
         bool done;
 
-        //FASHION & BEAUTY,
-        //    SPORTS & OUTDOOR,
-        //    PETS,
-        //    VEHICLES,
-        //    HOME IMPROVEMENT, 
-        //    BABIES/CHILDREN,
-        //    HOBBIES/INTERESTS,
-        //    MOBILE PHONES & ACCESSORIES,
-        //    HOME APPLIANCES, 
-        //    GAMING, 
-        //    BOOKS, 
-        //    MUSIC
+        [JsonProperty("userId")]
+        public string UserId { get; set; }
+
+        [JsonProperty(PropertyName = "id")]
+        public string Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        [JsonProperty(PropertyName = "EasternCape")]
+        public int EasternCape
+        {
+            get { return easternCape; }
+            set { easternCape = value; }
+        }
+
+        [JsonProperty(PropertyName = "FreeState")]
+        public int FreeState
+        {
+            get { return freeState; }
+            set { freeState = value; }
+        }
+
+        [JsonProperty(PropertyName = "Gauteng")]
+        public int Gauteng
+        {
+            get { return gauteng; }
+            set { gauteng = value; }
+        }
+
+        [JsonProperty(PropertyName = "KwaZuluNatal")]
+        public int KwaZuluNatal
+        {
+            get { return kwaZuluNatal; }
+            set { kwaZuluNatal = value; }
+        }
+
+        [JsonProperty(PropertyName = "Limpopo")]
+        public int Limpopo
+        {
+            get { return limpopo; }
+            set { limpopo = value; }
+        }
+
+        [JsonProperty(PropertyName = "Mpumalanga")]
+        public int Mpumalanga
+        {
+            get { return mpumalanga; }
+            set { mpumalanga = value; }
+        }
 
 
 
-        //[JsonProperty("userId")]
-        //public string UserId { get; set; }
+        [JsonProperty(PropertyName = "NorthernCape")]
+        public int NorthernCape
+        {
+            get { return northernCape; }
+            set { northernCape = value; }
+        }
 
-        //[JsonProperty(PropertyName = "id")]
-        //public string Id
-        //{
-        //    get { return id; }
-        //    set { id = value; }
-        //}
+        [JsonProperty(PropertyName = "NorthWest")]
+        public int NorthWest
+        {
+            get { return northWest; }
+            set { northWest = value; }
+        }
 
-        //[JsonProperty(PropertyName = "FashionAndBeauty")]
-        //public int FashionAndBeauty
-        //{
-        //    get { return fashionAndBeauty; }
-        //    set { fashionAndBeauty = value; }
-        //}
+        [JsonProperty(PropertyName = "WesternCape")]
+        public int WesternCape
+        {
+            get { return westernCape; }
+            set { westernCape = value; }
+        }
 
-        //[JsonProperty(PropertyName = "SportsAndOutdoor")]
-        //public int SportsAndOutdoor
-        //{
-        //    get { return sportsAndOutdoor; }
-        //    set { sportsAndOutdoor = value; }
-        //}
-
-        //[JsonProperty(PropertyName = "Pets")]
-        //public int Pets
-        //{
-        //    get { return pets; }
-        //    set { pets = value; }
-        //}
-
-        //[JsonProperty(PropertyName = "Vehicles")]
-        //public int Vehicles
-        //{
-        //    get { return vehicles; }
-        //    set { vehicles = value; }
-        //}
-
-        //[JsonProperty(PropertyName = "HomeImprovement")]
-        //public int HomeImprovement
-        //{
-        //    get { return homeImprovement; }
-        //    set { homeImprovement = value; }
-        //}
-
-        //[JsonProperty(PropertyName = "BabiesChildren")]
-        //public int BabiesChildren
-        //{
-        //    get { return babiesChildren; }
-        //    set { babiesChildren = value; }
-        //}
-
-
-
-        //[JsonProperty(PropertyName = "HobbiesInterests")]
-        //public int HobbiesInterests
-        //{
-        //    get { return hobbiesInterests; }
-        //    set { hobbiesInterests = value; }
-        //}
-
-        //[JsonProperty(PropertyName = "MobilePhonesAndAccessories")]
-        //public int MobilePhonesAndAccessories
-        //{
-        //    get { return mobilePhonesAndAccessories; }
-        //    set { mobilePhonesAndAccessories = value; }
-        //}
-
-        //[JsonProperty(PropertyName = "HomeAppliances")]
-        //public int HomeAppliances
-        //{
-        //    get { return homeAppliances; }
-        //    set { homeAppliances = value; }
-        //}
-
-        //[JsonProperty(PropertyName = "Gaming")]
-        //public int Gaming
-        //{
-        //    get { return gaming; }
-        //    set { gaming = value; }
-        //}
-
-        //[JsonProperty(PropertyName = "Books")]
-        //public int Books
-        //{
-        //    get { return books; }
-        //    set { books = value; }
-        //}
-
-        //[JsonProperty(PropertyName = "Music")]
-        //public int Music
-        //{
-        //    get { return music; }
-        //    set { music = value; }
-        //}
 
         [JsonProperty(PropertyName = "complete")]
         public bool Done

@@ -31,8 +31,11 @@ namespace AppSale
 
 #if OFFLINE_SYNC_ENABLED
         IMobileServiceSyncTable<TodoItem> todoTable;
+        IMobileServiceTable<Favourites> favouritesTable;
+        IMobileServiceTable<Regions> regionsTable;
 #else
         IMobileServiceTable<Favourites> favouritesTable;
+        IMobileServiceTable<Regions> regionsTable;
 #endif
 
         const string offlineDbPath = @"localstore.db";
@@ -44,13 +47,18 @@ namespace AppSale
 #if OFFLINE_SYNC_ENABLED
             var store = new MobileServiceSQLiteStore(offlineDbPath);
             store.DefineTable<TodoItem>();
+            store.DefineTable<Favourites>();
+            store.DefineTable<Regions>();
 
             //Initializes the SyncContext using the default IMobileServiceSyncHandler.
             this.client.SyncContext.InitializeAsync(store);
 
             this.todoTable = client.GetSyncTable<TodoItem>();
+            this.favouritesTable = client.GetSyncTable<Favourites>();
+            this.regionsTable = client.GetSyncTable<Regions>();
 #else
             this.favouritesTable = client.GetTable<Favourites>();
+            this.regionsTable = client.GetTable<Regions>();
 #endif
         }
 
@@ -146,6 +154,17 @@ namespace AppSale
             }
         }
 
+        public async Task SaveRegionAsync(Regions item)
+        {
+            if (item.Id == null)
+            {
+                await regionsTable.InsertAsync(item);
+            }
+            else
+            {
+                await regionsTable.UpdateAsync(item);
+            }
+        }
 #if OFFLINE_SYNC_ENABLED
         public async Task SyncAsync()
         {
