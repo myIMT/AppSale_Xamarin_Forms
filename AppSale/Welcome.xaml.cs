@@ -55,7 +55,7 @@ namespace AppSale
                     items.Add(new CheckItem { Name = "Eastern Cape" });
                     items.Add(new CheckItem { Name = "Free State" });
                     items.Add(new CheckItem { Name = "Gauteng" });
-                    items.Add(new CheckItem { Name = "KwaZulu-Natal." });
+                    items.Add(new CheckItem { Name = "KwaZulu-Natal" });
                     items.Add(new CheckItem { Name = "Limpopo" });
                     items.Add(new CheckItem { Name = "Mpumalanga" });
                     items.Add(new CheckItem { Name = "Northern Cape" });
@@ -229,7 +229,7 @@ namespace AppSale
                     regions.Mpumalanga = 1;
                     //DisplayAlert("SetFavouriteValue: " + name, favourites.FashionAndBeauty.ToString(), "OK");
                     break;
-                case "Northen Cape":
+                case "Northern Cape":
                     regions.NorthernCape = 1;
                     break;
                 case "North West":
