@@ -35,21 +35,24 @@ namespace AppSale
             // Refresh items only when authenticated.
             if (authenticated == true)
             {
+                #region FavouritesAndRegionCaptured
                 if (setFavourites && setRegions)
                 {
-                    var ranswers = regionMultiPage.GetSelection();
-                    foreach (var a in ranswers)
-                    {
-                        messageLabel.Text += a.Name + ", ";
-                        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
-                        SetRegionValue(a.Name);
+                    //var ranswers = regionMultiPage.GetSelection();
+                    //foreach (var a in ranswers)
+                    //{
+                    //    messageLabel.Text += a.Name + ", ";
+                    //    //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+                    //    SetRegionValue(a.Name);
 
-                    }
-                    await AddRegions(regions);
+                    //}
+                    //await AddRegions(regions);
                     await Navigation.PushAsync(new Sale());
                 }
+                #endregion
 
-                if (setFavourites && (setRegions==false))
+                #region FavouritesCapturedNotRegion
+                if (setFavourites && (setRegions == false))
                 {
                     var items = new List<CheckItem>();
                     items.Add(new CheckItem { Name = "Eastern Cape" });
@@ -66,8 +69,8 @@ namespace AppSale
                     if (regionMultiPage == null)
                         regionMultiPage = new SelectMultipleBasePage<CheckItem>(items) { Title = "Select your region" };
 
-                    //await Navigation.PushModalAsync(multiPage);
                     await Navigation.PushAsync(regionMultiPage);
+                    //await Navigation.PushAsync(regionMultiPage);
                     messageLabel.Text = "";
                     //var ranswers = regionMultiPage.GetSelection();
                     //foreach (var a in ranswers)
@@ -79,18 +82,19 @@ namespace AppSale
                     //}
                     //await AddRegions(regions);
                     setRegions = true;
-                    }
-                    else
-                    {
-                        messageLabel.Text = "";
-                    }
+                }
+                else
+                {
+                    messageLabel.Text = "";
+                }
+                #endregion
 
-                    // Set syncItems to true in order to synchronize the data 
-                    // on startup when running in offline mode.
-                    //await RefreshItems(true, syncItems: false);
+                // Set syncItems to true in order to synchronize the data 
+                // on startup when running in offline mode.
+                //await RefreshItems(true, syncItems: false);
 
-                    // Hide the Sign-in button.
-                    this.loginButton.IsVisible = false;
+                // Hide the Sign-in button.
+                this.loginButton.IsVisible = false;
                 this.facebookLoginButton.IsVisible = false;
                 this.registerButton.IsVisible = false;
                 this.forgotButton.IsVisible = false;
@@ -110,24 +114,75 @@ namespace AppSale
                 this.logoutButton.IsVisible = false;
             }
 
-            if (multiPage != null)
-            {
-                messageLabel.Text = "";
-                var answers = multiPage.GetSelection();
-                foreach (var a in answers)
-                {
-                    messageLabel.Text += a.Name + ", ";
-                    //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
-                    SetFavouriteValue(a.Name);
+            //#region FavouriteList
+            //if (multiPage != null)
+            //{
+            //    messageLabel.Text = "";
+            //    var favouriteAnswers = multiPage.GetSelection();
+            //    foreach (var a in favouriteAnswers)
+            //    {
+            //        messageLabel.Text += a.Name + ", ";
+            //        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+            //        SetFavouriteValue(a.Name);
 
-                }
-                await AddFavourite(favourites);
-            }
-            else
-            {
-                messageLabel.Text = "";
-            }
+            //    }
+            //    await Navigation.PushModalAsync(new Sale());
+            //    await AddRegions(regions);
+            //    await AddFavourite(favourites);
+            //    //await Navigation.PopAsync(new Welcome());
+                
+            //}
+            //else
+            //{
+            //    messageLabel.Text = "";
+            //}
+            //#endregion
 
+            //#region RegionList
+            //if (regionMultiPage != null)
+            //{
+            //    messageLabel.Text = "";
+            //    var regionAnswers = regionMultiPage.GetSelection();
+            //    foreach (var a in regionAnswers)
+            //    {
+            //        messageLabel.Text += a.Name + ", ";
+            //        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+            //        SetRegionValue(a.Name);
+
+            //    }
+            //    //await AddRegions(regions);
+
+            //    //--------------------------------------------------------------------------
+            //    //#region DoFavouriteList
+            //    //var favouriteItems = new List<CheckItem>();
+            //    //favouriteItems.Add(new CheckItem { Name = "FASHION & BEAUTY" });
+            //    //favouriteItems.Add(new CheckItem { Name = "SPORTS & OUTDOOR" });
+            //    //favouriteItems.Add(new CheckItem { Name = "PETS" });
+            //    //favouriteItems.Add(new CheckItem { Name = "VEHICLES" });
+            //    //favouriteItems.Add(new CheckItem { Name = "HOME IMPROVEMENT" });
+            //    //favouriteItems.Add(new CheckItem { Name = "BABIES / CHILDREN" });
+            //    //favouriteItems.Add(new CheckItem { Name = "HOOBIES INTERESTS" });
+            //    //favouriteItems.Add(new CheckItem { Name = "MOBILE PHONES & ACCESSORIES" });
+            //    //favouriteItems.Add(new CheckItem { Name = "HOME APPLIANCES" });
+            //    //favouriteItems.Add(new CheckItem { Name = "GAMING" });
+            //    //favouriteItems.Add(new CheckItem { Name = "BOOKS" });
+            //    //favouriteItems.Add(new CheckItem { Name = "MUSIC" });
+
+
+            //    ////todoList.ItemsSource = items;
+            //    //if (multiPage == null)
+            //    //    multiPage = new SelectMultipleBasePage<CheckItem>(favouriteItems) { Title = "Select your favourites" };
+
+            //    ////await Navigation.PushModalAsync(multiPage);
+            //    //await Navigation.PushAsync(multiPage);
+            //    //#endregion
+            //    //---------------------------------------------------------------------------------
+            //}
+            //else
+            //{
+            //    messageLabel.Text = "";
+            //} 
+            //#endregion
         }
 
         private void ZeroFavouriteItems()
@@ -268,28 +323,57 @@ namespace AppSale
                 //await Navigation.PushAsync(new AddFavourite());
                 //await Navigation.PushAsync(new TodoList());
                 //await Navigation.PushModalAsync(multiPage);
-                //-----------------------------------------------------------------------------------------------
-                var items = new List<CheckItem>();
-                items.Add(new CheckItem { Name = "FASHION & BEAUTY" });
-                items.Add(new CheckItem { Name = "SPORTS & OUTDOOR" });
-                items.Add(new CheckItem { Name = "PETS" });
-                items.Add(new CheckItem { Name = "VEHICLES" });
-                items.Add(new CheckItem { Name = "HOME IMPROVEMENT" });
-                items.Add(new CheckItem { Name = "BABIES / CHILDREN" });
-                items.Add(new CheckItem { Name = "HOOBIES INTERESTS" });
-                items.Add(new CheckItem { Name = "MOBILE PHONES & ACCESSORIES" });
-                items.Add(new CheckItem { Name = "HOME APPLIANCES" });
-                items.Add(new CheckItem { Name = "GAMING" });
-                items.Add(new CheckItem { Name = "BOOKS" });
-                items.Add(new CheckItem { Name = "MUSIC" });
-
+                var regionsItems = new List<CheckItem>();
+                regionsItems.Add(new CheckItem { Name = "Eastern Cape" });
+                regionsItems.Add(new CheckItem { Name = "Free State" });
+                regionsItems.Add(new CheckItem { Name = "Gauteng" });
+                regionsItems.Add(new CheckItem { Name = "KwaZulu-Natal" });
+                regionsItems.Add(new CheckItem { Name = "Limpopo" });
+                regionsItems.Add(new CheckItem { Name = "Mpumalanga" });
+                regionsItems.Add(new CheckItem { Name = "Northern Cape" });
+                regionsItems.Add(new CheckItem { Name = "North West" });
+                regionsItems.Add(new CheckItem { Name = "Western Cape" });
 
                 //todoList.ItemsSource = items;
-                if (multiPage == null)
-                    multiPage = new SelectMultipleBasePage<CheckItem>(items) { Title = "Select your favourites" };
+                if (regionMultiPage == null)
+                    regionMultiPage = new SelectMultipleBasePage<CheckItem>(regionsItems) { Title = "Select your region" };
 
                 //await Navigation.PushModalAsync(multiPage);
-                await Navigation.PushAsync(multiPage);
+                await Navigation.PushAsync(regionMultiPage);
+                messageLabel.Text = "";
+                //var ranswers = regionMultiPage.GetSelection();
+                //foreach (var a in ranswers)
+                //{
+                //    messageLabel.Text += a.Name + ", ";
+                //    //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+                //    SetRegionValue(a.Name);
+
+                //}
+                //await AddRegions(regions);
+                setRegions = true;
+
+                //-----------------------------------------------------------------------------------------------
+                //var favouriteItems = new List<CheckItem>();
+                //favouriteItems.Add(new CheckItem { Name = "FASHION & BEAUTY" });
+                //favouriteItems.Add(new CheckItem { Name = "SPORTS & OUTDOOR" });
+                //favouriteItems.Add(new CheckItem { Name = "PETS" });
+                //favouriteItems.Add(new CheckItem { Name = "VEHICLES" });
+                //favouriteItems.Add(new CheckItem { Name = "HOME IMPROVEMENT" });
+                //favouriteItems.Add(new CheckItem { Name = "BABIES / CHILDREN" });
+                //favouriteItems.Add(new CheckItem { Name = "HOOBIES INTERESTS" });
+                //favouriteItems.Add(new CheckItem { Name = "MOBILE PHONES & ACCESSORIES" });
+                //favouriteItems.Add(new CheckItem { Name = "HOME APPLIANCES" });
+                //favouriteItems.Add(new CheckItem { Name = "GAMING" });
+                //favouriteItems.Add(new CheckItem { Name = "BOOKS" });
+                //favouriteItems.Add(new CheckItem { Name = "MUSIC" });
+
+
+                ////todoList.ItemsSource = items;
+                //if (multiPage == null)
+                //    multiPage = new SelectMultipleBasePage<CheckItem>(favouriteItems) { Title = "Select your favourites" };
+
+                ////await Navigation.PushModalAsync(multiPage);
+                //await Navigation.PushAsync(multiPage);
                 //----------------------------------------------------------------------------------------------------
                 AppSale.Helpers.Settings.InitFavSet = false;
             }

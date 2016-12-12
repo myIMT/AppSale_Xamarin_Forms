@@ -41,7 +41,9 @@ namespace Multiselect
 				name.SetBinding(Label.TextProperty, new Binding("Item.Name"));
 				Switch mainSwitch = new Switch();
 				mainSwitch.SetBinding(Switch.IsToggledProperty, new Binding("IsSelected"));
-				RelativeLayout layout = new RelativeLayout();
+                Button myButton1 = new Button();
+                myButton1.SetBinding(Button.TextProperty, new Binding("My Button 1"));
+                RelativeLayout layout = new RelativeLayout();
 				layout.Children.Add (name, 
 					Constraint.Constant (5), 
 					Constraint.Constant (5),
@@ -54,12 +56,18 @@ namespace Multiselect
 					Constraint.Constant (50),
 					Constraint.RelativeToParent (p => p.Height - 10)
 				);
+//                layout.Children.Add(myButton1,
+//                    Constraint.RelativeToParent(p => p.Width - 55),
+//                    Constraint.Constant(5),
+//                    Constraint.Constant(50),
+//                    Constraint.RelativeToParent(p => p.Height - 10)
+//);
                 View = layout;
 
-                Button myButton1 = new Button { Text = "My Button 1" };
-                var layout2 = new StackLayout();
-                layout2.Children.Add(myButton1);
-                myButton1.Clicked += (object sender, EventArgs e) => layout.ForceLayout();
+                //Button myButton1 = new Button { Text = "My Button 1" };
+                //var layout2 = new StackLayout();
+                //layout2.Children.Add(myButton1);
+                //myButton1.Clicked += (object sender, EventArgs e) => layout.ForceLayout();
                 //View = layout2;
                 //layout.Children.Add(button,
                 //    Constraint.Constant(10),
