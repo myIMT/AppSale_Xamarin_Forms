@@ -2,5 +2,25 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppSale.Sale">
-  <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
+  <Button x:Name="SaleButton" Text="Get Sale Data" MinimumHeightRequest="30" BackgroundColor="Yellow" Clicked="SaleButtonClicked" />
+  <Label x:Name="messageLabel" />
+  <!--<ListView x:Name="favouriteList">
+				--><!--ItemSelected="OnSelected"
+				IsPullToRefreshEnabled="true" Refreshing="OnRefresh"
+				Grid.Row="1">--><!--
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          --><!--<ViewCell.ContextActions>
+            <MenuItem Clicked="OnComplete" Text="Complete" CommandParameter="{Binding .}"/>
+          </ViewCell.ContextActions>--><!--
+          <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" Padding="15,5,0,0">
+            <StackLayout Padding="5,0,0,0" VerticalOptions="StartAndExpand" Orientation="Vertical">
+              <Label Text="{Binding Name}"  />
+            </StackLayout>
+          </StackLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>-->
 </ContentPage>

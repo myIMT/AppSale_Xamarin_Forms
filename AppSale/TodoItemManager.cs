@@ -96,7 +96,7 @@ namespace AppSale
 #endif
                 //Task<IEnumerable<Favourites>> favouritesItem = null;
                 IEnumerable<Favourites> items = await favouritesTable
-                    .Where(todoItem => todoItem.FashionAndBeauty >5)
+                    //.Where(todoItem => todoItem.FashionAndBeauty >5)
                     .ToEnumerableAsync();
                 //IEnumerable<Favourites> items = await favouritesTable
                 //    .Where(favouritesItem.item1> 3)

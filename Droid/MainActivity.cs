@@ -13,6 +13,7 @@ using static AppSale.App;
 using Android.Webkit;
 using Android.Graphics.Drawables;
 using Gcm.Client;
+using AppSale.Helpers;
 
 namespace AppSale.Droid
 {
@@ -80,7 +81,7 @@ namespace AppSale.Droid
             //}
         }
 
-
+        
 
         public async Task<bool> AuthenticateAsync()
         {
@@ -94,6 +95,9 @@ namespace AppSale.Droid
                     if (user != null)
                     {
                         //CreateAndShowDialog("You are now logged in", "Logged in!");
+                        //CreateAndShowDialog("User ID = ",user.UserId);
+                        Settings.AuthToken = user?.MobileServiceAuthenticationToken ?? string.Empty;
+                        Settings.UserId = user?.UserId ?? string.Empty;
                     }
                 }
                 success = true;

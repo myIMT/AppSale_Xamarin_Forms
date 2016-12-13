@@ -1,4 +1,6 @@
 ﻿using Multiselect;
+using Plugin.Settings;
+using Plugin.Settings.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,16 +40,35 @@ namespace AppSale
                 #region FavouritesAndRegionCaptured
                 if (setFavourites && setRegions)
                 {
-                    //var ranswers = regionMultiPage.GetSelection();
-                    //foreach (var a in ranswers)
-                    //{
-                    //    messageLabel.Text += a.Name + ", ";
-                    //    //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
-                    //    SetRegionValue(a.Name);
+                    messageLabel.Text = "";
 
-                    //}
-                    //await AddRegions(regions);
-                    await Navigation.PushAsync(new Sale());
+                    #region setSelectyedFavourites
+                    var favouriteAnswers = multiPage.GetSelection();
+                    foreach (var a in favouriteAnswers)
+                    {
+                        messageLabel.Text += a.Name + ", ";
+                        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+                        SetFavouriteValue(a.Name);
+
+                    } 
+                    #endregion
+
+                    #region setSelectedRegions
+                    var ranswers = regionMultiPage.GetSelection();
+                    foreach (var a in ranswers)
+                    {
+                        messageLabel.Text += a.Name + ", ";
+                        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+                        SetRegionValue(a.Name);
+
+                    }
+                    #endregion
+
+                    await Navigation.PushAsync(new GetFavourites());
+                    //await Navigation.PushAsync(new Sale());
+                    await AddRegions(regions);
+                    await AddFavourite(favourites);
+                    //await Navigation.PushAsync(new Sale());
                 }
                 #endregion
 
@@ -405,6 +426,7 @@ namespace AppSale
 
                 if (authenticated)
                 {
+                    await DisplayAlert("UserID:", Settings.UserId,"OK");
                     //DELETE THIS
                     AppSale.Helpers.Settings.InitFavSet = true;
                     if (AppSale.Helpers.Settings.InitFavSet)
@@ -443,6 +465,7 @@ namespace AppSale
                             //----------------------------------------------------------------------------------------------------
                             AppSale.Helpers.Settings.InitFavSet = false;
                             //setRegions = true;
+
                             setFavourites = true;
                         }
                         else
