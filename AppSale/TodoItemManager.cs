@@ -15,6 +15,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
+using System.Reflection;
+using System.Collections;
 //using Microsoft.WindowsAzure.MobileServices.Sync;
 
 #if OFFLINE_SYNC_ENABLED
@@ -36,6 +38,7 @@ namespace AppSale
 #else
         IMobileServiceTable<Favourites> favouritesTable;
         IMobileServiceTable<Regions> regionsTable;
+        Favourites MyFavouriteItem;
 #endif
 
         const string offlineDbPath = @"localstore.db";
@@ -96,13 +99,109 @@ namespace AppSale
 #endif
                 //Task<IEnumerable<Favourites>> favouritesItem = null;
                 IEnumerable<Favourites> items = await favouritesTable
-                    //.Where(todoItem => todoItem.FashionAndBeauty >5)
+                    .Where(todoItem => todoItem.FashionAndBeauty >5)
                     .ToEnumerableAsync();
                 //IEnumerable<Favourites> items = await favouritesTable
                 //    .Where(favouritesItem.item1> 3)
                 //    .ToEnumerableAsync();
 
                 return new ObservableCollection<Favourites>(items);
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
+        }
+
+        public async Task<Favourites> RecordLookup(string ID)
+        {
+            try
+            {
+#if OFFLINE_SYNC_ENABLED
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
+#endif
+                //Task<IEnumerable<Favourites>> favouritesItem = null;
+                //                IEnumerable<Favourites> items = await favouritesTable
+                Favourites items = await favouritesTable.LookupAsync(ID);
+                
+                    //                .Where(favouritesItem => favouritesItem.UserId == Settings.UserId)
+                    //.ToEnumerableAsync();
+                //IEnumerable<Favourites> items = await favouritesTable
+                //    .Where(favouritesItem.item1> 3)
+                //    .ToEnumerableAsync();
+                
+                return items;
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
+        }
+
+        //Settings.UserId
+        public async Task<ObservableCollection<Favourites>> UserExistAsync()
+        {
+            try
+            {
+#if OFFLINE_SYNC_ENABLED
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
+#endif
+                //Task<IEnumerable<Favourites>> favouritesItem = null;
+                IEnumerable<Favourites> items = await favouritesTable
+                                    .Where(favouritesItem => favouritesItem.UserId == Settings.UserId)
+                    .ToEnumerableAsync();
+                //IEnumerable<Favourites> items = await favouritesTable
+                //    .Where(favouritesItem.item1> 3)
+                //    .ToEnumerableAsync();
+
+                return new ObservableCollection<Favourites>(items);
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
+        }
+
+        public async Task<ObservableCollection<Regions>> RegionUserExistAsync()
+        {
+            try
+            {
+#if OFFLINE_SYNC_ENABLED
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
+#endif
+                //Task<IEnumerable<Favourites>> favouritesItem = null;
+                IEnumerable<Regions> items = await regionsTable
+                                    .Where(regionsItem => regionsItem.UserId == Settings.UserId)
+                    .ToEnumerableAsync();
+                //IEnumerable<Favourites> items = await favouritesTable
+                //    .Where(favouritesItem.item1> 3)
+                //    .ToEnumerableAsync();
+
+                return new ObservableCollection<Regions>(items);
             }
             catch (MobileServiceInvalidOperationException msioe)
             {
@@ -144,6 +243,83 @@ namespace AppSale
 
         public async Task SaveTaskAsync(Favourites item)
         {
+            //var tempItem = UserExistAsync();
+            //ObservableCollection<Favourites> tempItem = await UserExistAsync();
+            //if (tempItem != null)
+            //{
+            //    //item.Id = tempItem.ElementAt<Favourites>(0).Id;
+            //    Type type = typeof(Favourites);
+            //    IEnumerable props = type.GetRuntimeProperties();
+            //    foreach (PropertyInfo prop in props)
+            //    {
+
+            //        //if (Int16.Equals(prop.GetValue(),1))//(String.Equals(prop.Name, idPropertyName, StringComparison.OrdinalIgnoreCase))
+            //        //{
+            //        //    idPropertyValue = prop.GetValue(item).ToString();
+            //        //}
+            //    }
+
+                #region test
+            //    if (item.FashionAndBeauty == 1)
+            //    {
+
+            //    }
+            //    else if (item.SportsAndOutdoor == 1)
+            //    {
+
+            //    }
+            //    else if (item.Pets == 1)
+            //    {
+
+            //    }
+            //    else if (item.Vehicles == 1)
+            //    {
+
+            //    }
+            //    else if (item.HomeImprovement == 1)
+            //    {
+
+            //    }
+            //    else if (item.BabiesChildren == 1)
+            //    {
+
+            //    }
+            //    else if (item.HobbiesInterests == 1)
+            //    {
+
+            //    }
+            //    else if (item.MobilePhonesAndAccessories == 1)
+            //    {
+
+            //    }
+            //    else if (item.HomeAppliances == 1)
+            //    {
+
+            //    }
+            //    else if (item.Gaming == 1)
+            //    {
+
+            //    }
+            //    else if (item.Books == 1)
+            //    {
+
+            //    }
+            //    else if (item.Music == 1)
+            //    {
+
+            //    }
+            //    else if (true)
+            //    {
+
+            //    }
+            //    //item = tempItem;
+            //}
+            //else
+            //{
+
+            //} 
+            #endregion
+
             if (item.Id == null)
             {
                 await favouritesTable.InsertAsync(item);

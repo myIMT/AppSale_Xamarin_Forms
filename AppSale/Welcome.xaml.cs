@@ -2,8 +2,11 @@
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -323,14 +326,84 @@ namespace AppSale
 
         public async Task AddFavourite(Favourites item)
         {
-            await manager.SaveTaskAsync(item);
-            //todoList.ItemsSource = await manager.GetTodoItemsAsync();
+            ObservableCollection<Favourites> tempItem = await manager.UserExistAsync();
+            //await DisplayAlert("Number of records",tempItem.Count.ToString(),"OK");
+            int newValue;
+
+            if (tempItem != null)
+            {
+                if (tempItem.Count == 1)
+                {
+                    Type type = typeof(Favourites);
+                    IEnumerable props = type.GetRuntimeProperties();
+                    foreach (PropertyInfo prop in props)
+                    {
+                        if (prop.GetValue(item, null) is int)
+                        {
+                            if ((int)prop.GetValue(item, null) == 1)
+                            {
+                                string tempName = tempItem.ElementAt<Favourites>(0).GetType().GetRuntimeProperty(prop.Name).Name;
+                                newValue = (int)tempItem.ElementAt<Favourites>(0).GetType().GetRuntimeProperty(prop.Name).GetValue(tempItem.ElementAt<Favourites>(0), null);
+                                tempItem.ElementAt<Favourites>(0).GetType().GetRuntimeProperty(prop.Name).SetValue(tempItem.ElementAt<Favourites>(0), (int)prop.GetValue(item, null));
+                                await manager.SaveTaskAsync(tempItem.ElementAt<Favourites>(0));
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+                else
+                {//not unique record
+                    //Delete duplicate records
+                }
+            }
         }
 
         public async Task AddRegions(Regions item)
         {
-            await manager.SaveRegionAsync(item);
-            //todoList.ItemsSource = await manager.GetTodoItemsAsync();
+            ObservableCollection<Regions> tempItem = await manager.RegionUserExistAsync();
+            //await DisplayAlert("Number of records", tempItem.Count.ToString(), "OK");
+            int newValue;
+
+            if (tempItem != null)
+            {
+                if (tempItem.Count == 1)
+                {
+                    Type type = typeof(Regions);
+                    IEnumerable props = type.GetRuntimeProperties();
+                    foreach (PropertyInfo prop in props)
+                    {
+                        if (prop.GetValue(item, null) is int)
+                        {
+                            if ((int)prop.GetValue(item, null) == 1)
+                            {
+                                string tempName = tempItem.ElementAt<Regions>(0).GetType().GetRuntimeProperty(prop.Name).Name;
+                                newValue = (int)tempItem.ElementAt<Regions>(0).GetType().GetRuntimeProperty(prop.Name).GetValue(tempItem.ElementAt<Regions>(0), null);
+                                tempItem.ElementAt<Regions>(0).GetType().GetRuntimeProperty(prop.Name).SetValue(tempItem.ElementAt<Regions>(0), (int)prop.GetValue(item, null));
+                                await manager.SaveRegionAsync(tempItem.ElementAt<Regions>(0));
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+                else
+                {//not unique record
+                    //
+                }
+            }
         }
         //SelectMultipleBasePage<CheckItem> multiPage;
         async void OnLoginButtonClicked(object sender, EventArgs e)
@@ -426,7 +499,7 @@ namespace AppSale
 
                 if (authenticated)
                 {
-                    await DisplayAlert("UserID:", Settings.UserId,"OK");
+                    //await DisplayAlert("UserID:", Settings.UserId,"OK");
                     //DELETE THIS
                     AppSale.Helpers.Settings.InitFavSet = true;
                     if (AppSale.Helpers.Settings.InitFavSet)
@@ -436,11 +509,6 @@ namespace AppSale
                         //-----------------------------------------
                         if (AppSale.Helpers.Settings.InitFavSet)
                         {
-                            //await Navigation.PushAsync(new GetFavourites());
-                            //await Navigation.PushAsync(new AddFavourite());
-                            //await Navigation.PushAsync(new TodoList());
-                            //await Navigation.PushModalAsync(multiPage);
-                            //-----------------------------------------------------------------------------------------------
                             var items = new List<CheckItem>();
                             items.Add(new CheckItem { Name = "FASHION & BEAUTY" });
                             items.Add(new CheckItem { Name = "SPORTS & OUTDOOR" });
@@ -456,15 +524,11 @@ namespace AppSale
                             items.Add(new CheckItem { Name = "MUSIC" });
 
 
-                            //todoList.ItemsSource = items;
                             if (multiPage == null)
                                 multiPage = new SelectMultipleBasePage<CheckItem>(items) { Title = "Select your favourites" };
 
-                            //await Navigation.PushModalAsync(multiPage);
                             await Navigation.PushAsync(multiPage);
-                            //----------------------------------------------------------------------------------------------------
                             AppSale.Helpers.Settings.InitFavSet = false;
-                            //setRegions = true;
 
                             setFavourites = true;
                         }
@@ -478,8 +542,6 @@ namespace AppSale
                     {
                         await Navigation.PushModalAsync(new Sale());
                     }
-                    //Navigation.InsertPageBefore(new TodoList(), this);
-                    //await Navigation.PopAsync();
                 }
             }
             catch (InvalidOperationException ex)

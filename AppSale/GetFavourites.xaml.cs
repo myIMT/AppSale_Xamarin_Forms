@@ -56,7 +56,11 @@ namespace AppSale
             ListView myListView = new ListView();
 
             //myListView.ItemsSource =  await manager.GetFavouritesAsync();
-            todoList.ItemsSource = await manager.GetFavouritesAsync();
+            //todoList.ItemsSource = await manager.GetFavouritesAsync();
+            //todoList.ItemsSource = await manager.UserExistAsync();
+            //favourite = await manager.UserExistAsync();
+            favourite = await manager.RecordLookup(Settings.UserId);
+            //await DisplayAlert("test", "test", "OK");
             //todoList.ItemsSource = await manager.GetTodoItemsAsync();
             //favourite = myListView
             //todoList.ItemsSource = myListView.ItemsSource;
