@@ -404,6 +404,10 @@ namespace AppSale
                     //
                 }
             }
+            else
+            {
+                await manager.SaveRegionAsync(item);
+            }
         }
         //SelectMultipleBasePage<CheckItem> multiPage;
         async void OnLoginButtonClicked(object sender, EventArgs e)
