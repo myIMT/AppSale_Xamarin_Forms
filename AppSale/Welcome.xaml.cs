@@ -45,7 +45,7 @@ namespace AppSale
                 {
                     messageLabel.Text = "";
 
-                    #region setSelectyedFavourites
+                    #region setSelectedFavourites
                     var favouriteAnswers = multiPage.GetSelection();
                     foreach (var a in favouriteAnswers)
                     {
@@ -330,8 +330,8 @@ namespace AppSale
             //await DisplayAlert("Number of records",tempItem.Count.ToString(),"OK");
             int newValue;
 
-            if (tempItem != null)
-            {
+            //if (tempItem != null) || (tempItem != null)
+            //{
                 if (tempItem.Count == 1)
                 {
                     Type type = typeof(Favourites);
@@ -361,8 +361,13 @@ namespace AppSale
                 else
                 {//not unique record
                     //Delete duplicate records
+                    //await manager.SaveRegionAsync(item);
                 }
-            }
+            //}
+            //else
+            //{
+            //    await manager.SaveRegionAsync(item);
+            //}
         }
 
         public async Task AddRegions(Regions item)
@@ -371,8 +376,8 @@ namespace AppSale
             //await DisplayAlert("Number of records", tempItem.Count.ToString(), "OK");
             int newValue;
 
-            if (tempItem != null)
-            {
+            //if (tempItem != null)
+            //{
                 if (tempItem.Count == 1)
                 {
                     Type type = typeof(Regions);
@@ -402,12 +407,13 @@ namespace AppSale
                 else
                 {//not unique record
                     //
+                    await manager.SaveRegionAsync(item);
                 }
-            }
-            else
-            {
-                await manager.SaveRegionAsync(item);
-            }
+            //}
+            //else
+            //{
+            //    await manager.SaveRegionAsync(item);
+            //}
         }
         //SelectMultipleBasePage<CheckItem> multiPage;
         async void OnLoginButtonClicked(object sender, EventArgs e)
