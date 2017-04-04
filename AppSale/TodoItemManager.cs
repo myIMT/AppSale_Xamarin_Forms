@@ -330,6 +330,18 @@ namespace AppSale
             }
         }
 
+        public async Task SaveFavouriteAsync(Favourites item)
+        {
+            if (item.Id == null)
+            {
+                await favouritesTable.InsertAsync(item);
+            }
+            else
+            {
+                await favouritesTable.UpdateAsync(item);
+            }
+        }
+
         public async Task SaveRegionAsync(Regions item)
         {
             if (item.Id == null)

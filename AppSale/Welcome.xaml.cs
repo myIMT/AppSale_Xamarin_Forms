@@ -361,7 +361,7 @@ namespace AppSale
                 else
                 {//not unique record
                     //Delete duplicate records
-                    //await manager.SaveRegionAsync(item);
+                    await manager.SaveFavouriteAsync(item);
                 }
             //}
             //else
