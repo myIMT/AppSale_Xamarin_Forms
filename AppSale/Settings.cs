@@ -10,7 +10,7 @@ namespace AppSale
     /// of your client applications. All settings are laid out the same exact way with getters
     /// and setters. 
     /// </summary>
-    class Settings
+    public static class Settings
     {
         private static ISettings AppSettings
         {
@@ -68,6 +68,7 @@ namespace AppSale
             }
         }
 
+        public static bool IsLoggedIn => !string.IsNullOrWhiteSpace(UserId);
         //public static bool IsLoggedIn
         //{
         //    //get

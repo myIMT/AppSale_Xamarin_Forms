@@ -11,11 +11,14 @@
 //using Android.Widget;
 //using Xamarin.Forms;
 //using System.Threading.Tasks;
+//using AppSale.Droid;
+//using AppSale;
+//using Microsoft.WindowsAzure.MobileServices;
 
 //[assembly: Dependency(typeof(Authentication))]
 //namespace AppSale.Droid
 //{
-//    public class Authentication : IAuthentication
+//    public class Authentication //: IAuthentication
 //    {
 //        public async Task<MobileServiceUser> LoginAsync(MobileServiceClient client, MobileServiceAuthenticationProvider provider)
 //        {
@@ -30,7 +33,7 @@
 //            catch (Exception e)
 //            {
 //                e.Data["method"] = "LoginAsync";
-//                Xamarin.Insights.Report(e);
+//                //Xamarin.Insights.Report(e);
 //            }
 
 //            return null;
