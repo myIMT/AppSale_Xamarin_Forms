@@ -326,26 +326,27 @@ namespace AppSale
 
         public async Task AddFavourite(Favourites item)
         {
+            // This checks if currently (last logged in) logged in user already exist in Favourites table
             ObservableCollection<Favourites> tempItem = await manager.UserExistAsync();
             //await DisplayAlert("Number of records",tempItem.Count.ToString(),"OK");
             int newValue;
 
             //if (tempItem != null) || (tempItem != null)
             //{
-                if (tempItem.Count == 1)
+                if (tempItem.Count == 1)                                // Specific user does exist in Favourites table
                 {
-                    Type type = typeof(Favourites);
-                    IEnumerable props = type.GetRuntimeProperties();
-                    foreach (PropertyInfo prop in props)
+                    Type type = typeof(Favourites);                     // Get instance of Favourite class - in order to get to its properties ("Pets", "UserId", "Vehicles", etc.)
+                    IEnumerable props = type.GetRuntimeProperties();    // Create a list of Favourite's properties
+                    foreach (PropertyInfo prop in props)                // Loop through each property
                     {
-                        if (prop.GetValue(item, null) is int)
+                        if (prop.GetValue(item, null) is int)           // Look for all properties that are of type int - The actual "favourite items"
                         {
-                            if ((int)prop.GetValue(item, null) == 1)
+                            if ((int)prop.GetValue(item, null) == 1)    // Keep current set "favourite items" and just add newly set "favourite items"
                             {
                                 string tempName = tempItem.ElementAt<Favourites>(0).GetType().GetRuntimeProperty(prop.Name).Name;
                                 newValue = (int)tempItem.ElementAt<Favourites>(0).GetType().GetRuntimeProperty(prop.Name).GetValue(tempItem.ElementAt<Favourites>(0), null);
                                 tempItem.ElementAt<Favourites>(0).GetType().GetRuntimeProperty(prop.Name).SetValue(tempItem.ElementAt<Favourites>(0), (int)prop.GetValue(item, null));
-                                await manager.SaveTaskAsync(tempItem.ElementAt<Favourites>(0));
+                                await manager.SaveTaskAsync(tempItem.ElementAt<Favourites>(0));     // Update record (with old and new values)
                             }
                             else
                             {
