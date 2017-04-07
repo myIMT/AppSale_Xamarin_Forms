@@ -14,6 +14,11 @@ namespace Multiselect
 		}
 
 		public string Name {get;set;}
-	}
+
+        public static explicit operator CheckItem(string v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 

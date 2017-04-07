@@ -183,6 +183,37 @@ namespace AppSale
             return null;
         }
 
+        public async Task<Favourites> RecordExistAsync()
+        {
+            try
+            {
+#if OFFLINE_SYNC_ENABLED
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
+#endif
+                //Task<IEnumerable<Favourites>> favouritesItem = null;
+                IEnumerable<Favourites> items = await favouritesTable
+                                    .Where(favouritesItem => favouritesItem.UserId == Settings.UserId)
+                    .ToEnumerableAsync();
+                //IEnumerable<Favourites> items = await favouritesTable
+                //    .Where(favouritesItem.item1> 3)
+                //    .ToEnumerableAsync();
+                return (Favourites)items;
+                //return new ObservableCollection<Favourites>(items);
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
+        }
+
         public async Task<ObservableCollection<Regions>> RegionUserExistAsync()
         {
             try

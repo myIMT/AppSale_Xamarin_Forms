@@ -133,7 +133,7 @@ namespace AppSale
 
             //todoList.ItemsSource = items;
             if (multiPage == null)
-                multiPage = new SelectMultipleBasePage<CheckItem>(items) { Title = "Check all that apply" };
+                multiPage = new SelectMultipleBasePage<CheckItem>(items, false) { Title = "Check all that apply" };
 
             await Navigation.PushAsync(multiPage);
             //await Navigation.PushAsync(multiPage);

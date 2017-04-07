@@ -23,6 +23,10 @@
         </StackLayout>
       </Grid>
     </StackLayout>
+    <StackLayout x:Name="buttonsPanel2" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+      <Button Text="Display my favourites" MinimumHeightRequest="30"  BackgroundColor="Lime" Clicked="MyFavouritesClick" />
+      <!--<Button Text="Logout" BackgroundColor="Lime" Clicked="OnLogoutButtonClicked" />-->
+    </StackLayout>    
     <ListView x:Name="todoList" ItemSelected="OnSelected" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" Grid.Row="1">
       <ListView.ItemTemplate>
         <DataTemplate>

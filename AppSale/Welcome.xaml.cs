@@ -91,7 +91,7 @@ namespace AppSale
 
                     //todoList.ItemsSource = items;
                     if (regionMultiPage == null)
-                        regionMultiPage = new SelectMultipleBasePage<CheckItem>(items) { Title = "Select your region" };
+                        regionMultiPage = new SelectMultipleBasePage<CheckItem>(items,false) { Title = "Select your region" };
 
                     await Navigation.PushAsync(regionMultiPage);
                     //await Navigation.PushAsync(regionMultiPage);
@@ -441,7 +441,7 @@ namespace AppSale
 
                 //todoList.ItemsSource = items;
                 if (regionMultiPage == null)
-                    regionMultiPage = new SelectMultipleBasePage<CheckItem>(regionsItems) { Title = "Select your region" };
+                    regionMultiPage = new SelectMultipleBasePage<CheckItem>(regionsItems,false) { Title = "Select your region" };
 
                 //await Navigation.PushModalAsync(multiPage);
                 await Navigation.PushAsync(regionMultiPage);
@@ -535,9 +535,11 @@ namespace AppSale
                             items.Add(new CheckItem { Name = "MUSIC" });
 
 
-                            if (multiPage == null)
-                                multiPage = new SelectMultipleBasePage<CheckItem>(items) { Title = "Select your favourites" };
+                            //await DisplayAlert("items = ", items.Select(CheckItem (n, "OK");
 
+                            if (multiPage == null)
+                                multiPage = new SelectMultipleBasePage<CheckItem>(items,false) { Title = "Select your favourites" };
+                            
                             await Navigation.PushAsync(multiPage);
                             AppSale.Helpers.Settings.InitFavSet = false;
 

@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using Multiselect;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +17,9 @@ namespace AppSale
     {
         TodoItemManager manager;
         Favourites favourites;
+        Favourites favourite = new Favourites();
+        IMobileServiceTable<Favourites> favouritesTable;
+        SelectMultipleBasePage<CheckItem> multiPage;
 
         public GetFavourites()
         {
@@ -39,7 +46,7 @@ namespace AppSale
         void OnItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e == null) return; // has been set to null, do not 'process' tapped event
-            DisplayAlert("Item", "Tapped: " + e.Item,"OK");
+            DisplayAlert("Item", "Tapped: " + e.Item, "OK");
             //Debug.WriteLine("Tapped: " + e.Item);
             ((ListView)sender).SelectedItem = null; // de-select the row
         }
@@ -52,19 +59,19 @@ namespace AppSale
 
         async Task GetItem()
         {
-            Favourites favourite = new Favourites();
-            ListView myListView = new ListView();
+            //Favourites favourite = new Favourites();
+            //ListView myListView = new ListView();
 
-            //myListView.ItemsSource =  await manager.GetFavouritesAsync();
-            //todoList.ItemsSource = await manager.GetFavouritesAsync();
-            //todoList.ItemsSource = await manager.UserExistAsync();
-            //favourite = await manager.UserExistAsync();
             favourite = await manager.RecordLookup(Settings.UserId);
-            //await DisplayAlert("test", "test", "OK");
-            //todoList.ItemsSource = await manager.GetTodoItemsAsync();
-            //favourite = myListView
-            //todoList.ItemsSource = myListView.ItemsSource;
-            //await DisplayAlert("Alert", myListView.ItemsSource.ToString(), "OK");
+
+            //IEnumerable<Favourites> items = await favouritesTable
+            //                    .Where(favouritesItem => favouritesItem.UserId == Settings.UserId)
+            //    .ToEnumerableAsync();
+            ////IEnumerable<Favourites> items = await favouritesTable
+            ////    .Where(favouritesItem.item1> 3)
+            ////    .ToEnumerableAsync();
+
+            //return new ObservableCollection<Favourites>(items);
         }
 
         public async void OnComplete(object sender, EventArgs e)
@@ -127,7 +134,7 @@ namespace AppSale
 
             //if (error != null)
             //{
-                await DisplayAlert("Alert","Refresh E!!", "OK");
+            await DisplayAlert("Alert", "Refresh E!!", "OK");
             //}
         }
 
@@ -182,6 +189,173 @@ namespace AppSale
                     indicatorDelay.ContinueWith(t => SetIndicatorActivity(false), TaskScheduler.FromCurrentSynchronizationContext());
                 }
             }
+        }
+
+        public async void MyFavouritesClick(object sender, EventArgs e)
+        {
+            GetAllTableRecordsByNoneKey("Favourites", "UserId", Settings.UserId);
+            //await GetItem();
+
+            //Type type = typeof(Favourites);                     // Get instance of Favourite class - in order to get to its properties ("Pets", "UserId", "Vehicles", etc.)
+            //IEnumerable props = type.GetRuntimeProperties();    // Create a list of Favourite's properties
+            //foreach (PropertyInfo prop in props)                // Loop through each property
+            //{
+            //    if (prop.GetValue(favourite, null) is int)           // Look for all properties that are of type int - The actual "favourite items"
+            //    {
+            //        if ((int)prop.GetValue(favourite, null) == 1)    // Keep current set "favourite items" and just add newly set "favourite items"
+            //        {
+            //            await DisplayAlert("prop.Name = ", prop.Name, "OK");
+
+            //            //newValue = (int)tempItem.ElementAt<Favourites>(0).GetType().GetRuntimeProperty(prop.Name).GetValue(tempItem.ElementAt<Favourites>(0), null);
+            //            //tempItem.ElementAt<Favourites>(0).GetType().GetRuntimeProperty(prop.Name).SetValue(tempItem.ElementAt<Favourites>(0), (int)prop.GetValue(item, null));
+            //        }
+            //    }
+            //}
+        }
+
+        public async void GetTableRecord(string tableName, string key)
+        {
+            await GetItem();
+        }
+
+        public async void GetTableRecordBySql(string key)
+        {
+            await GetItem();
+        }
+
+        public async void GetAllTableRecords(string tableName)
+        {
+            await GetItem();
+        }
+
+        private void SetFavourites(Favourites RetrievedFavourites)
+        {
+            // Loop through each property to find selectColumn
+            Type type = typeof(Favourites);                     // Get instance of Favourite class - in order to get to its properties ("Pets", "UserId", "Vehicles", etc.)
+            IEnumerable props = type.GetRuntimeProperties();    // Create a list of Favourite's properties
+            foreach (PropertyInfo prop in props)                // Loop through each property
+            {
+                if (prop.GetValue(RetrievedFavourites, null) is int)           // Look for all properties that are of type int - The actual "favourite items"
+                {
+                    switch (prop.Name)
+                    {
+                        case "FashionAndBeauty":
+                            favourites.FashionAndBeauty = RetrievedFavourites.FashionAndBeauty;
+                            //foreach (var wi in WrappedItems)
+                            //{
+                            //    wi.IsSelected = true;
+                            //}
+                            //DisplayAlert("SetFavouriteValue: " + name, favourites.FashionAndBeauty.ToString(), "OK");
+                            break;
+                        case "SportsAndOutdoor":
+                            favourites.SportsAndOutdoor = RetrievedFavourites.SportsAndOutdoor;
+                            //DisplayAlert("SetFavouriteValue: " + name, favourites.SportsAndOutdoor.ToString(), "OK");
+                            break;
+                        case "Pets":
+                            favourites.Pets = RetrievedFavourites.Pets;
+                            //DisplayAlert("SetFavouriteValue: " + name, favourites.Pets.ToString(), "OK");
+                            break;
+                        case "Vehicles":
+                            favourites.Vehicles = RetrievedFavourites.Vehicles;
+                            //DisplayAlert("SetFavouriteValue: " + name, favourites.Vehicles.ToString(), "OK");
+                            break;
+                        case "HomeImprovement":
+                            favourites.HomeImprovement = RetrievedFavourites.HomeImprovement;
+                            //DisplayAlert("SetFavouriteValue: " + name, favourites.HomeImprovement.ToString(), "OK");
+                            break;
+                        case "BabiesChildren":
+                            favourites.BabiesChildren = RetrievedFavourites.BabiesChildren;
+                            //DisplayAlert("SetFavouriteValue: " + name, favourites.FashionAndBeauty.ToString(), "OK");
+                            break;
+                        case "HobbiesInterests":
+                            favourites.HobbiesInterests = RetrievedFavourites.HobbiesInterests;
+                            break;
+                        case "MobilePhonesAndAccessories":
+                            favourites.MobilePhonesAndAccessories = RetrievedFavourites.MobilePhonesAndAccessories;
+                            break;
+                        case "HomeAppliances":
+                            favourites.HomeAppliances = RetrievedFavourites.HomeAppliances;
+                            break;
+                        case "Gaming":
+                            favourites.Gaming = RetrievedFavourites.Gaming;
+                            break;
+                        case "Books":
+                            favourites.Books = RetrievedFavourites.Books;
+                            break;
+                        case "Music":
+                            favourites.Music = RetrievedFavourites.Music;
+                            break;
+                        default:
+                            //DisplayAlert("NOTHING -- SetFavouriteValue: ", name, "OK");
+                            //favourites.[name] = 0;
+                            break;
+                    }
+                }
+            }
+
+            //#region FavouritesAndRegionCaptured
+
+            //    #region setRetrievedFavourites
+            //    //var favouriteAnswers = multiPage.SetValue()
+            //    var favouriteAnswers = multiPage.GetSelection();
+            //    foreach (var a in favouriteAnswers)
+            //    {
+            //        messageLabel.Text += a.Name + ", ";
+            //        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+            //        SetFavouriteValue(a.Name);
+
+            //    }
+            //    #endregion
+
+            //    #region setSelectedRegions
+            //    var ranswers = regionMultiPage.GetSelection();
+            //    foreach (var a in ranswers)
+            //    {
+            //        messageLabel.Text += a.Name + ", ";
+            //        //ADD CODE HERE - set integer values = 1 for a.Name = Favourites Class
+            //        SetRegionValue(a.Name);
+
+            //    }
+            //    #endregion
+
+            //    await Navigation.PushAsync(new GetFavourites());
+            //    //await Navigation.PushAsync(new Sale());
+            //    await AddRegions(regions);
+            //    await AddFavourite(favourites);
+            //    //await Navigation.PushAsync(new Sale());
+            //#endregion
+        }
+
+        public async void GetAllTableRecordsByNoneKey(string tableName, string selectColumn, string key)
+        {
+            ObservableCollection<Favourites> tempItem = await manager.UserExistAsync();
+            //Favourites tempItem = await manager.RecordExistAsync();
+            SetFavourites(tempItem.ElementAt<Favourites>(0));
+            //// Loop through each property to find selectColumn
+            //Type type = typeof(Favourites);                     // Get instance of Favourite class - in order to get to its properties ("Pets", "UserId", "Vehicles", etc.)
+            //IEnumerable props = type.GetRuntimeProperties();    // Create a list of Favourite's properties
+            //foreach (PropertyInfo prop in props)                // Loop through each property
+            //{
+            //    if (prop.Name == selectColumn)
+            //    {
+            //        await DisplayAlert("Selected Column = ", prop.Name, "OK");
+            //        string tempName = tempItem.ElementAt<Favourites>(0).GetType().GetRuntimeProperty(prop.Name).Name;
+
+
+            //    }
+            //    //if (prop.GetValue(item, null) is int)           // Look for all properties that are of type int - The actual "favourite items"
+            //    //{
+
+            //    //}
+            //}
+
+
+
+            //        IEnumerable<Favourites> items = await favouritesTable
+            //  .Where(favouritesItem => !todoItem.Done)
+            //  .ToEnumerableAsync();
+
+            //return new ObservableCollection<TodoItem>(items);
         }
     }
 }

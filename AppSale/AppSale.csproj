@@ -33,6 +33,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CRUDManager.cs" />
+    <Compile Include="DisplayFavourites.cs" />
     <Compile Include="GetFavourites.xaml.cs">
       <DependentUpon>GetFavourites.xaml</DependentUpon>
     </Compile>
